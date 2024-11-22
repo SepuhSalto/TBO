@@ -4,5 +4,4 @@ def l1Hat(state,x) -> str:
         return state
     else:
         state = l1Delta(l1Hat(state, x[0:-1]), x[-1])
-        print("-->", state, end='')
         return state
