@@ -33,9 +33,7 @@ class Application:
                 if self.validate_login(username, password):
                     self.state = l1Hat(self.state, 'T')
                     self.update_state()
-                elif username == 'admin' and password == '1234':
-                    self.state = l1Hat(self.state, 'Y')
-                    self.update_state()
+
                 else:
                     messagebox.showerror("Error", "Invalid credentials")
                 return
@@ -109,10 +107,6 @@ class Application:
             self.login_button.pack(pady=10)
             self.register_button = tk.Button(self.root, text="Register", command=self.register_user, font=("Arial", 12))
             self.register_button.pack(pady=10)
-        elif self.state == 'admin':
-            self.label.config(text="Admin Panel")
-            self.label.pack(pady=20)
-            self.admin_panel = AdminPanel(self.root)
         elif self.state == 'q0':
             self.label.config(text="Surat permohonan")
             self.label.pack(pady=20)
@@ -161,19 +155,15 @@ class Application:
             else:
                 messagebox.showerror("Error", "Not in final state")
 
+        if self.state != 'login' and self.state != 'q9':
+            self.next_button.pack(pady=20)
+
+
     def add_upload_button(self, text):
         button = tk.Button(self.root, text=text, command=lambda idx=len(self.upload_buttons): self.upload_file(idx), font=("Arial", 12))
         button.pack(pady=10)
         self.upload_buttons.append({'button': button, 'file_path': None})
 
-class AdminPanel:
-    def __init__(self, root):
-        self.root = root
-        self.create_widgets()
-
-    def create_widgets(self):
-        self.label = tk.Label(self.root, text="Welcome to Admin Panel", font=("Arial", 14))
-        self.label.pack(pady=20)
 
 if __name__ == "__main__":
     root = tk.Tk()
