@@ -31,7 +31,7 @@ class Application:
                 username = self.username_entry.get()
                 password = self.password_entry.get()
                 if self.validate_login(username, password):
-                    self.state = l1Hat(self.state, 'T')
+                    self.state = l1Hat(self.state, 'Y')
                     self.update_state()
 
                 else:

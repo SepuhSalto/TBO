@@ -2,7 +2,7 @@ def l1Delta(state, x) -> str:
     if state == 'q0':
         return 'q1' if x == 'Y' else 'q0'
     elif state == 'login':
-        return 'q0' if x == 'T' else 'login'
+        return 'q0' if x == 'Y' else 'login'
     elif state == 'q1':
         return 'q2' if x == 'Y' else 'q1'
     elif state == 'q2':
