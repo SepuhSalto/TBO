@@ -108,9 +108,9 @@ class Application:
             self.register_button = tk.Button(self.root, text="Register", command=self.register_user, font=("Arial", 12))
             self.register_button.pack(pady=10)
         elif self.state == 'q0':
-            self.label.config(text="Surat permohonan")
+            self.label.config(text="Surat Permohonan")
             self.label.pack(pady=20)
-            self.add_upload_button("Upload Surat permohonan")
+            self.add_upload_button("Upload Surat Permohonan")
         elif self.state == 'q1':
             self.label.config(text="Formulir keikutsertaan, Surat Penunjukkan Admin, Surat Kuasa")
             self.label.pack(pady=20)
@@ -127,35 +127,31 @@ class Application:
             self.add_upload_button("Upload KTP/KITAS/Passport Direktur")
             self.add_upload_button("Upload KTP Penerima Kuasa")
         elif self.state == 'q4':
-            self.label.config(text="NPWP Perusahaan")
+            self.label.config(text="NPWP Perusahaan, TDB/NIB, SIUP, Akta Pendirian, Akta Perubahan")
             self.label.pack(pady=20)
             self.add_upload_button("Upload NPWP Perusahaan")
-        elif self.state == 'q5':
-            self.label.config(text="SIUP")
-            self.label.pack(pady=20)
-            self.add_upload_button("Upload SIUP")
-        elif self.state == 'q6':
-            self.label.config(text="TDP/NIB")
-            self.label.pack(pady=20)
             self.add_upload_button("Upload TDP/NIB")
-        elif self.state == 'q7':
-            self.label.config(text="Akta Pendirian, Akta Perubahan")
-            self.label.pack(pady=20)
+            self.add_upload_button("Upload SIUP")
             self.add_upload_button("Upload Akta Pendirian")
             self.add_upload_button("Upload Akta Perubahan")
-        elif self.state == 'q8':
+        elif self.state == 'q5':
+            self.label.config(text="Slip Gaji")
+            self.label.pack(pady=20)
+            self.add_upload_button("Upload Slip Gaji")
+        elif self.state == 'q6':
+            self.label.config(text="Rekening Koran 2 Bulan terakhir")
+            self.label.pack(pady=20)
+            self.add_upload_button("Upload Rekening Koran 2 Bulan terakhir")
+        elif self.state == 'q7':
             self.label.config(text="Surat Keterangan Domisili")
             self.label.pack(pady=20)
             self.add_upload_button("Upload Surat Keterangan Domisili")
-        elif self.state == 'q9':
-            if l1Hat('q0', 'Y' * 10) == 'q10':
-                self.label.config(text="Q10: Diterima")
+        elif self.state == 'q8':
+                self.label.config(text="Semua File Diterima")
                 self.label.pack(pady=20)
                 self.next_button.config(state=tk.DISABLED)
-            else:
-                messagebox.showerror("Error", "Not in final state")
 
-        if self.state != 'login' and self.state != 'q9':
+        if self.state != 'login' and self.state != 'q8':
             self.next_button.pack(pady=20)
 
 

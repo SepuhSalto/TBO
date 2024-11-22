@@ -10,7 +10,7 @@ def l1Delta(state, x) -> str:
     elif state == 'q3':
         return 'q4' if x == 'Y' else 'q3'  
     elif state == 'q4':
-        return 'q5' if x == 'Y' else 'q4'
+        return 'q5' if x == 'Y' else 'q5'
     elif state == 'q5':
         return 'q6' if x == 'Y' else 'q5'
     elif state == 'q6':
@@ -18,8 +18,4 @@ def l1Delta(state, x) -> str:
     elif state == 'q7':
         return 'q8' if x == 'Y' else 'q7'
     elif state == 'q8':
-        return 'q9' if x == 'Y' else 'q8'
-    elif state == 'q9':
-        return 'q10' if x == 'Y' else 'q9'
-    elif state == 'q10':
-        return 'q10' if x == 'Y' else 'q10'
+        return 'q8' if x == 'Y' else 'q8'
