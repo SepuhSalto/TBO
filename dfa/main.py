@@ -108,11 +108,11 @@ class Application:
         if self.state == 'login':
             self.label.config(text="Login")
             self.label.pack(pady=20)
-            tk.Label(self.root, text="Username:", font=("Arial", 12)).pack(pady=0, padx=100, anchor=tk.W)
+            tk.Label(self.root, text="Username:", font=("Arial", 12)).pack(pady=0, padx=200, anchor=tk.W)
             self.username_entry = tk.Entry(self.root, font=("Arial", 12))
             self.username_entry.pack(pady=0, padx=10)
 
-            tk.Label(self.root, text="Password:", font=("Arial", 12)).pack(pady=0, padx=100, anchor=tk.W)
+            tk.Label(self.root, text="Password:", font=("Arial", 12)).pack(pady=0, padx=200, anchor=tk.W)
             self.password_entry = tk.Entry(self.root, show='*', font=("Arial", 12))
             self.password_entry.pack(pady=0, padx=10)
 
@@ -182,7 +182,7 @@ class Application:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    root.geometry("400x300")  # Set fixed size for the window (width x height)
+    root.geometry("600x300")  # Set fixed size for the window (width x height)
     root.resizable(False, False)  # Disable resizing of the window
     app = Application(root)
     root.mainloop()
