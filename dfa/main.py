@@ -30,29 +30,25 @@ class Application:
         self.next_button = tk.Button(self.root, text="Next", command=self.next_state, font=("Arial", 12))
         self.next_button.pack(pady=20)
 
-    def upload_file(self, index):
+    def upload_file(self, index, expected_file_name):
         file_path = filedialog.askopenfilename(filetypes=[("PDF files", "*.pdf")])
         if file_path:
             file_name = os.path.basename(file_path)
-            expected_name = self.get_expected_file_name()
 
-            if isinstance(expected_name, list):
-                if file_name in expected_name:
+            if isinstance(expected_file_name, list):
+                if file_name in expected_file_name:
                     self.upload_buttons[index]['file_path'] = file_path
                     self.upload_buttons[index]['button'].config(text=f"File selected: {file_name}")
                 else:
-                    messagebox.showerror("Error", f"File name must match: {', '.join(expected_name)}")
+                    messagebox.showerror("Error", f"File name must match: {', '.join(expected_file_name)}")
             else:
-                if file_name == expected_name:
+                if file_name == expected_file_name:
                     self.upload_buttons[index]['file_path'] = file_path
                     self.upload_buttons[index]['button'].config(text=f"File selected: {file_name}")
                 else:
-                    messagebox.showerror("Error", f"File name must match: {expected_name}")
+                    messagebox.showerror("Error", f"File name must match: {expected_file_name}")
         else:
             self.upload_buttons[index]['file_path'] = None
-
-    def get_expected_file_name(self):
-        return self.expected_file_names.get(self.state, None)
 
     def next_state(self):
         if self.state == 'login':
@@ -112,49 +108,81 @@ class Application:
         if self.state == 'login':
             self.label.config(text="Login")
             self.label.pack(pady=20)
+            tk.Label(self.root, text="Username:", font=("Arial", 12)).pack(pady=0, padx=300, anchor=tk.W)
             self.username_entry = tk.Entry(self.root, font=("Arial", 12))
-            self.username_entry.pack(pady=10)
+            self.username_entry.pack(pady=10, padx=10)
+
+            tk.Label(self.root, text="Password:", font=("Arial", 12)).pack(pady=0, padx=300, anchor=tk.W)
             self.password_entry = tk.Entry(self.root, show='*', font=("Arial", 12))
-            self.password_entry.pack(pady=10)
-            self.login_button = tk.Button(self.root, text="Login", command=self.next_state, font=("Arial", 12))
-            self.login_button.pack(pady=10)
-            self.register_button = tk.Button(self.root, text="Register", command=self.register_user, font=("Arial", 12))
-            self.register_button.pack(pady=10)
+            self.password_entry.pack(pady=10, padx=10)
+
+            tk.Button(self.root, text="Login", command=self.next_state).pack(pady=10, padx=10)
+            tk.Button(self.root, text="Register", command=self.register_user).pack(pady=10, padx=10)
+
+        elif self.state == 'q0':
+            self.label.config(text="Surat Permohonan")
+            self.label.pack(pady=20)
+            self.add_upload_button("Upload Surat Permohonan", "surat_permohonan.pdf")
+
+        elif self.state == 'q1':
+            self.label.config(text="Formulir keikutsertaan, Surat Penunjukkan Admin, Surat Kuasa")
+            self.label.pack(pady=20)
+            self.add_upload_button("Upload Formulir keikutsertaan", "formulir_keikutsertaan.pdf")
+            self.add_upload_button("Upload Surat Penunjukkan Admin", "surat_penunjukkan_admin.pdf")
+            self.add_upload_button("Upload Surat Kuasa", "surat_kuasa.pdf")
+
+        elif self.state == 'q2':
+            self.label.config(text="Formulir Penyedia")
+            self.label.pack(pady=20)
+            self.add_upload_button("Upload Formulir Penyedia", "formulir_penyedia.pdf")
+
+        elif self.state == 'q3':
+            self.label.config(text="KTP/KITAS/Passport Direktur, KTP Penerima Kuasa")
+            self.label.pack(pady=20)
+            self.add_upload_button("Upload KTP/KITAS/Passport Direktur", "ktp_kitap_passport_direktur.pdf")
+            self.add_upload_button("Upload KTP Penerima Kuasa", "ktp_penerima_kuasa.pdf")
+
+        elif self.state == 'q4':
+            self.label.config(text="NPWP Perusahaan, TDB/NIB, SIUP, Akta Pendirian, Akta Perubahan")
+            self.label.pack(pady=20)
+            self.add_upload_button("Upload NPWP Perusahaan", "npwp_perusahaan.pdf")
+            self.add_upload_button("Upload TDP/NIB", "tdb_nib.pdf")
+            self.add_upload_button("Upload SIUP", "siup.pdf")
+            self.add_upload_button("Upload Akta Pendirian", "akta_pendirian.pdf")
+            self.add_upload_button("Upload Akta Perubahan", "akta_perubahan.pdf")
+
+        elif self.state == 'q5':
+            self.label.config(text="Slip Gaji")
+            self.label.pack(pady=20)
+            self.add_upload_button("Upload Slip Gaji", "slip_gaji.pdf")
+
+        elif self.state == 'q6':
+            self.label.config(text="Rekening Koran 2 Bulan terakhir")
+            self.label.pack(pady=20)
+            self.add_upload_button("Upload Rekening Koran 2 Bulan terakhir", "rekening_koran_2_bulan_terakhir.pdf")
+
+        elif self.state == 'q7':
+            self.label.config(text="Surat Keterangan Domisili")
+            self.label.pack(pady=20)
+            self.add_upload_button("Upload Surat Keterangan Domisili", "surat_keterangan_domisili.pdf")
+
         elif self.state == 'q8':
-            self.label.config(text="All Files Accepted")
+            self.label.config(text="Semua File Diterima")
             self.label.pack(pady=20)
             self.next_button.config(state=tk.DISABLED)
-        else:
-            self.label.config(text=self.get_state_description())
-            self.label.pack(pady=20)
-            expected_files = self.get_expected_file_name()
-            if isinstance(expected_files, list):
-                for file in expected_files:
-                    self.add_upload_button(f"Upload {file}")
-            elif expected_files:
-                self.add_upload_button(f"Upload {expected_files}")
+
+        if self.state != 'login' and self.state != 'q8':
             self.next_button.pack(pady=20)
 
-    def get_state_description(self):
-        descriptions = {
-            'q0': "Surat Permohonan",
-            'q1': "Formulir keikutsertaan, Surat Penunjukkan Admin, Surat Kuasa",
-            'q2': "Formulir Penyedia",
-            'q3': "KTP/KITAS/Passport Direktur, KTP Penerima Kuasa",
-            'q4': "NPWP Perusahaan, TDP/NIB, SIUP, Akta Pendirian, Akta Perubahan",
-            'q5': "Slip Gaji",
-            'q6': "Rekening Koran 2 Bulan terakhir",
-            'q7': "Surat Keterangan Domisili"
-        }
-        return descriptions.get(self.state, "")
-
-    def add_upload_button(self, text):
-        button = tk.Button(self.root, text=text, command=lambda idx=len(self.upload_buttons): self.upload_file(idx), font=("Arial", 12))
+    def add_upload_button(self, text, expected_file_name):
+        button = tk.Button(self.root, text=text, command=lambda idx=len(self.upload_buttons): self.upload_file(idx, expected_file_name), font=("Arial", 12))
         button.pack(pady=10)
-        self.upload_buttons.append({'button': button, 'file_path': None})
+        self.upload_buttons.append({'button': button, 'file_path': None, 'expected_file_name': expected_file_name})
 
 
 if __name__ == "__main__":
     root = tk.Tk()
+    root.geometry("400x300")  # Set fixed size for the window (width x height)
+    root.resizable(False, False)  # Disable resizing of the window
     app = Application(root)
     root.mainloop()
